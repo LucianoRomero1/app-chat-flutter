@@ -6,7 +6,7 @@ import 'package:chat_app/pages/users_page.dart';
 import 'package:flutter/cupertino.dart';
 
 final Map<String, Widget Function(BuildContext)> appRoutes = {
-  'usuarios': (_) => UsersPage(),
+  'users': (_) => UsersPage(),
   'chat': (_) => ChatPage(),
   'login': (_) => LoginPage(),
   'register': (_) => RegisterPage(),
