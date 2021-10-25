@@ -126,7 +126,6 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin { //h
 
     if(text.length == 0) return;
 
-    print(text);
     _textCtrl.clear();
     _focusNode.requestFocus(); 
 
@@ -148,7 +147,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin { //h
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    
 
     for(ChatMessage message in _messages){
       message.animationController.dispose();

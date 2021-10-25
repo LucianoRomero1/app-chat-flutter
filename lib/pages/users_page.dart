@@ -1,6 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import 'package:chat_app/services/auth_service.dart';
 import 'package:chat_app/models/user.dart';
 
 
@@ -21,23 +25,31 @@ class _UsersPageState extends State<UsersPage> {
 
 
   final users = [
-    User(uid: '1', nombre: 'Carlos', email: 'Carlos1@test.com', online: true),
-    User(uid: '2', nombre: 'Melisa', email: 'Melisa1@test.com', online: false),
-    User(uid: '3', nombre: 'Roberto', email: 'Roberto1@test.com', online: true),
+    User(uid: '1', name: 'Carlos', email: 'Carlos1@test.com', online: true),
+    User(uid: '2', name: 'Melisa', email: 'Melisa1@test.com', online: false),
+    User(uid: '3', name: 'Roberto', email: 'Roberto1@test.com', online: true),
   ];
 
 
   @override
   Widget build(BuildContext context) {
+
+    final authService = Provider.of<AuthService>(context);
+    final user = authService.user;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Luciano Romero', style: TextStyle(color: Colors.black54)),
+        title: Text(user?.name ?? 'Without name', style: TextStyle(color: Colors.black54)),
         elevation: 1,
         backgroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(Icons.exit_to_app),
           color: Colors.black54,
-          onPressed: (){},
+          onPressed: (){
+            //TODO discconect from socket sv           
+            Navigator.pushReplacementNamed(context, 'login');
+            AuthService.deleteToken();
+          },
         ),
         actions: [
           Container(
@@ -71,10 +83,10 @@ class _UsersPageState extends State<UsersPage> {
 
   ListTile _userListTile(User user) {
     return ListTile(
-        title: Text(user.nombre),
+        title: Text(user.name),
         subtitle: Text(user.email),
         leading: CircleAvatar(
-          child: Text(user.nombre.substring(0,2)),
+          child: Text(user.name.substring(0,2)),
           backgroundColor: Colors.blue[100],
         ),
         trailing: Container(

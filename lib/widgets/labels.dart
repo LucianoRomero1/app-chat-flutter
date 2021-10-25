@@ -8,9 +8,9 @@ class Labels extends StatelessWidget {
 
   const Labels({
     Key? key, 
-    @required this.route = '',
-    @required this.title = '',
-    @required this.subtitle = '',
+    required this.route,
+    required this.title,
+    required this.subtitle,
   }) : super(key: key);
 
 

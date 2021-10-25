@@ -1,9 +1,13 @@
 
+import 'package:chat_app/helpers/show_alert.dart';
+import 'package:chat_app/services/auth_service.dart';
 import 'package:chat_app/widgets/blue_button.dart';
 import 'package:chat_app/widgets/custom_input.dart';
 import 'package:chat_app/widgets/labels.dart';
 import 'package:chat_app/widgets/logo.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 
 
 class RegisterPage extends StatelessWidget {
@@ -50,6 +54,9 @@ class __FormState extends State<_Form> {
   
   @override
   Widget build(BuildContext context) {
+
+    final authService = Provider.of<AuthService>( context );
+
     return Container(
       margin: EdgeInsets.only(top: 20),
       padding: EdgeInsets.symmetric(horizontal: 50),
@@ -78,11 +85,19 @@ class __FormState extends State<_Form> {
           ),
 
           BlueButton(
-            text: 'Sign in',
-            onPressed: (){
-              print(emailCtrl);
-              print(pwCtrl);
-            },
+            text: 'Create account',
+            onPressed: authService.authenticating ? ()=>{} : () async {
+               final registroOk = await authService.register(nameCtrl.text.trim(), emailCtrl.text.trim(), pwCtrl.text.trim());
+
+               if ( registroOk == true ) {
+                //  TODO: Conectar socket server
+                Navigator.pushReplacementNamed(context, 'users');
+               } else {
+                 showAlert(context, 'Registro incorrecto', registroOk );
+               }
+
+             },
+            
           )
         ],
       ),
