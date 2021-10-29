@@ -1,12 +1,18 @@
 
-import 'package:chat_app/helpers/show_alert.dart';
+
+
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:chat_app/services/auth_service.dart';
+import 'package:chat_app/services/socket_service.dart';
+
 import 'package:chat_app/widgets/blue_button.dart';
 import 'package:chat_app/widgets/custom_input.dart';
 import 'package:chat_app/widgets/labels.dart';
 import 'package:chat_app/widgets/logo.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:chat_app/helpers/show_alert.dart';
 
 
 
@@ -56,6 +62,7 @@ class __FormState extends State<_Form> {
   Widget build(BuildContext context) {
 
     final authService = Provider.of<AuthService>( context );
+    final socketService = Provider.of<SocketService>(context);
 
     return Container(
       margin: EdgeInsets.only(top: 20),
@@ -90,7 +97,7 @@ class __FormState extends State<_Form> {
                final registroOk = await authService.register(nameCtrl.text.trim(), emailCtrl.text.trim(), pwCtrl.text.trim());
 
                if ( registroOk == true ) {
-                //  TODO: Conectar socket server
+                socketService.connect();
                 Navigator.pushReplacementNamed(context, 'users');
                } else {
                  showAlert(context, 'Registro incorrecto', registroOk );

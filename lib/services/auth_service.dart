@@ -10,7 +10,7 @@ import 'package:chat_app/models/login_response.dart';
 
 class AuthService with ChangeNotifier{
 
-  User? user;
+  late User user;
   bool _authenticating = false;
   final _storage = new FlutterSecureStorage();
 
