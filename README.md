@@ -1,6 +1,12 @@
-# chat_app
+# Chat App
 
-A new Flutter project.
+Es importante remarcar que: 
+En el backend necesito la version de socket IO -> "socket.io": "^2.3.0"
+Y en el front necesito la version de socket IO -> socket_io_client: ^1.0.1
+
+En el backend se realiza de esta manera
+npm uninstall socket.io
+npm install socket.io@2.3.0
 
 ## Getting Started
 
